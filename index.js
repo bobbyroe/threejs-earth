@@ -67,6 +67,7 @@ function animate() {
   lightsMesh.rotation.y += 0.002;
   cloudsMesh.rotation.y += 0.0023;
   glowMesh.rotation.y += 0.002;
+  stars.rotation.y -= 0.0002;
   renderer.render(scene, camera);
 }
 
