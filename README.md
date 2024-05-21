@@ -1,5 +1,9 @@
-# THREE.js Earth scene
+# Three.js Project for Beginners: Add the Moon     
 
-Watch the tutorial on [YouTube](https://youtu.be/FntV9iEJ0tU)
+This one is made for beginners, we're adding the Moon to the Earth. 
+Let's create a majestic masterpiece.
 
-Earth texture maps: [PlanetPixelEmporium](https://planetpixelemporium.com/earth.html)
+Watch the tutorial on [YouTube](https://youtu.be/Bd3I_cHZyGo)
+
+Earth and Moon texture maps: [PlanetPixelEmporium](https://planetpixelemporium.com/earth.html)
+
