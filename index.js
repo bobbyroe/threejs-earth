@@ -20,12 +20,16 @@ scene.add(earthGroup);
 new OrbitControls(camera, renderer.domElement);
 const detail = 12;
 const loader = new THREE.TextureLoader();
+const bumpMap = loader.load("./textures/01_earthbump1k.jpg");
+bumpMap.wrapS = THREE.RepeatWrapping;
+bumpMap.wrapT = THREE.RepeatWrapping;
+// bumpMap.repeat.set(5, 5);
 const geometry = new THREE.IcosahedronGeometry(1, detail);
 const material = new THREE.MeshPhongMaterial({
   map: loader.load("./textures/00_earthmap1k.jpg"),
   specularMap: loader.load("./textures/02_earthspec1k.jpg"),
-  bumpMap: loader.load("./textures/01_earthbump1k.jpg"),
-  bumpScale: 0.04,
+  bumpMap,
+  bumpScale: 10,
 });
 const earthMesh = new THREE.Mesh(geometry, material);
 earthGroup.add(earthMesh);
@@ -35,7 +39,7 @@ const lightsMat = new THREE.MeshBasicMaterial({
   blending: THREE.AdditiveBlending,
 });
 const lightsMesh = new THREE.Mesh(geometry, lightsMat);
-earthGroup.add(lightsMesh);
+// earthGroup.add(lightsMesh);
 
 const cloudsMat = new THREE.MeshStandardMaterial({
   map: loader.load("./textures/04_earthcloudmap.jpg"),
@@ -47,7 +51,7 @@ const cloudsMat = new THREE.MeshStandardMaterial({
 });
 const cloudsMesh = new THREE.Mesh(geometry, cloudsMat);
 cloudsMesh.scale.setScalar(1.003);
-earthGroup.add(cloudsMesh);
+// earthGroup.add(cloudsMesh);
 
 const fresnelMat = getFresnelMat();
 const glowMesh = new THREE.Mesh(geometry, fresnelMat);
