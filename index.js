@@ -2,68 +2,51 @@ import * as THREE from "three";
 import { OrbitControls } from 'jsm/controls/OrbitControls.js';
 import getStarfield from "./src/getStarfield.js";
 import { getFresnelMat } from "./src/getFresnelMat.js";
+import { getEarthMat } from "./src/getEarthMat.js";
 
 const w = window.innerWidth;
 const h = window.innerHeight;
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, w / h, 0.1, 1000);
-camera.position.z = 3;
+camera.position.set(0.2, 0, 3);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(w, h);
 document.body.appendChild(renderer.domElement);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
 
+const loader = new THREE.TextureLoader();
+
+const sunDirection = new THREE.Vector3(-2, 0.5, 1.5);
+
 const earthGroup = new THREE.Group();
 earthGroup.rotation.z = -23.4 * Math.PI / 180;
 scene.add(earthGroup);
 new OrbitControls(camera, renderer.domElement);
-const detail = 12;
-const loader = new THREE.TextureLoader();
-const bumpMap = loader.load("./textures/01_earthbump1k.jpg");
-bumpMap.wrapS = THREE.RepeatWrapping;
-bumpMap.wrapT = THREE.RepeatWrapping;
-// bumpMap.repeat.set(5, 5);
+const detail = 32;
+
 const geometry = new THREE.IcosahedronGeometry(1, detail);
-const material = new THREE.MeshPhongMaterial({
-  map: loader.load("./textures/00_earthmap1k.jpg"),
-  specularMap: loader.load("./textures/02_earthspec1k.jpg"),
-  bumpMap,
-  bumpScale: 10,
-});
+const material = getEarthMat(sunDirection);
 const earthMesh = new THREE.Mesh(geometry, material);
 earthGroup.add(earthMesh);
 
-const lightsMat = new THREE.MeshBasicMaterial({
-  map: loader.load("./textures/03_earthlights1k.jpg"),
-  blending: THREE.AdditiveBlending,
-});
-const lightsMesh = new THREE.Mesh(geometry, lightsMat);
-// earthGroup.add(lightsMesh);
-
-const cloudsMat = new THREE.MeshStandardMaterial({
-  map: loader.load("./textures/04_earthcloudmap.jpg"),
-  transparent: true,
-  opacity: 0.5,
-  blending: THREE.AdditiveBlending,
-  alphaMap: loader.load('./textures/05_earthcloudmaptrans.jpg'),
-  // alphaTest: 0.4,
-});
-const cloudsMesh = new THREE.Mesh(geometry, cloudsMat);
-cloudsMesh.scale.setScalar(1.003);
-// earthGroup.add(cloudsMesh);
-
-const fresnelMat = getFresnelMat();
-const glowMesh = new THREE.Mesh(geometry, fresnelMat);
-glowMesh.scale.setScalar(1.01);
+const atmosphereMat = getFresnelMat();
+const glowMesh = new THREE.Mesh(geometry, atmosphereMat);
+glowMesh.scale.setScalar(1.02);
 earthGroup.add(glowMesh);
 
+// add twinkle
 const stars = getStarfield({numStars: 2000});
 scene.add(stars);
 
 const sunLight = new THREE.DirectionalLight(0xffffff, 4.0);
-sunLight.position.set(-2, 0.5, 1.5);
+sunLight.position.copy(sunDirection);
 scene.add(sunLight);
+const sunGeo = new THREE.SphereGeometry(1, 32, 32);
+const sunMat = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+const sunMesh = new THREE.Mesh(sunGeo, sunMat);
+sunMesh.position.copy(sunDirection).multiplyScalar(5);
+scene.add(sunMesh);
 
 const moonGroup = new THREE.Group();
 scene.add(moonGroup);
@@ -77,14 +60,11 @@ moonMesh.position.set(2, 0, 0);
 moonMesh.scale.setScalar(0.27);
 moonGroup.add(moonMesh);
 
-function animate() {
+function animate(t = 0) {
   requestAnimationFrame(animate);
-
   earthMesh.rotation.y += 0.002;
-  lightsMesh.rotation.y += 0.002;
-  cloudsMesh.rotation.y += 0.0023;
   glowMesh.rotation.y += 0.002;
-  stars.rotation.y -= 0.0002;
+  stars.userData.update(t);
   moonGroup.rotation.y += 0.01;
   renderer.render(scene, camera);
 }
