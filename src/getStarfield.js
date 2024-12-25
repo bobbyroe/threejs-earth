@@ -11,9 +11,12 @@ export default function getStarfield({ numStars = 500 } = {}) {
     let y = radius * Math.sin(phi) * Math.sin(theta);
     let z = radius * Math.cos(phi);
     const rate = Math.random() * 0.005;
+    const prob = Math.random();
+    const light = Math.random();
     function update(t) {
       // refine me
-      return Math.sin(t * rate) * 1;
+      const lightness = prob > 0.9 ? light + Math.sin(t * rate) * 1 : light;
+      return lightness;
     }
     return {
       pos: new THREE.Vector3(x, y, z),

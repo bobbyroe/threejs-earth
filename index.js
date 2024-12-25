@@ -3,7 +3,7 @@ import { OrbitControls } from 'jsm/controls/OrbitControls.js';
 import getStarfield from "./src/getStarfield.js";
 import { getFresnelMat } from "./src/getFresnelMat.js";
 import { getEarthMat } from "./src/getEarthMat.js";
-
+import getLayer from "./src/getLayer.js";
 const w = window.innerWidth;
 const h = window.innerHeight;
 const scene = new THREE.Scene();
@@ -58,7 +58,10 @@ const moonMat = new THREE.MeshStandardMaterial({
 const moonMesh = new THREE.Mesh(geometry, moonMat);
 moonMesh.position.set(2, 0, 0);
 moonMesh.scale.setScalar(0.27);
-moonGroup.add(moonMesh);
+// moonGroup.add(moonMesh);
+
+const nebula = getLayer({ path: './textures/rad-grad.png'});
+scene.add(nebula);
 
 function animate(t = 0) {
   requestAnimationFrame(animate);
