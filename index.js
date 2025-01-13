@@ -48,18 +48,6 @@ const sunMesh = new THREE.Mesh(sunGeo, sunMat);
 sunMesh.position.copy(sunDirection).multiplyScalar(5);
 scene.add(sunMesh);
 
-const moonGroup = new THREE.Group();
-scene.add(moonGroup);
-const moonMat = new THREE.MeshStandardMaterial({
-  map: loader.load("./textures/06_moonmap4k.jpg"),
-  bumpMap: loader.load("./textures/07_moonbump4k.jpg"),
-  bumpScale: 2,
-});
-const moonMesh = new THREE.Mesh(geometry, moonMat);
-moonMesh.position.set(2, 0, 0);
-moonMesh.scale.setScalar(0.27);
-// moonGroup.add(moonMesh);
-
 const nebula = getLayer({ path: './textures/rad-grad.png'});
 scene.add(nebula);
 
@@ -68,7 +56,6 @@ function animate(t = 0) {
   earthMesh.rotation.y += 0.002;
   glowMesh.rotation.y += 0.002;
   stars.userData.update(t);
-  moonGroup.rotation.y += 0.01;
   renderer.render(scene, camera);
 }
 

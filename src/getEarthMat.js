@@ -5,18 +5,8 @@ const defaultSunDirection = new THREE.Vector3(-2, 0.5, 1.5).normalize();
 function getEarthMat(sunDirection = defaultSunDirection) {
 
   const map = loader.load("./textures/earth-daymap-4k.jpg");
-  const nightMap = loader.load("./textures/earth-nightmap-4k.jpg");
-  const bumpMap = loader.load("./textures/earth-bump-4k.jpg");
-  const roughnessMap = loader.load("./textures/earth-specular-4k.jpg");
+  const nightMap = loader.load("./textures/other/jupiter-4k.jpg");
   const cloudsMap = loader.load("./textures/earth-clouds-4k.jpg");
-  bumpMap.wrapS = THREE.RepeatWrapping;
-  bumpMap.wrapT = THREE.RepeatWrapping;
-  // const material = new THREE.MeshStandardMaterial({
-  //   map,
-  //   roughnessMap,
-  //   bumpMap,
-  //   bumpScale: 10,
-  // });
 
   const uniforms = {
     dayTexture: { value: map },
