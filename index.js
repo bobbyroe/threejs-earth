@@ -15,14 +15,16 @@ document.body.appendChild(renderer.domElement);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
 
-const loader = new THREE.TextureLoader();
+// const loader = new THREE.TextureLoader();
 
 const sunDirection = new THREE.Vector3(-2, 0.5, 1.5);
 
 const earthGroup = new THREE.Group();
 earthGroup.rotation.z = -23.4 * Math.PI / 180;
 scene.add(earthGroup);
-new OrbitControls(camera, renderer.domElement);
+const ctrls = new OrbitControls(camera, renderer.domElement);
+ctrls.enableDamping = true;
+
 const detail = 32;
 
 const geometry = new THREE.IcosahedronGeometry(1, detail);
@@ -57,6 +59,7 @@ function animate(t = 0) {
   glowMesh.rotation.y += 0.002;
   stars.userData.update(t);
   renderer.render(scene, camera);
+  ctrls.update();
 }
 
 animate();
