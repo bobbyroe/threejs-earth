@@ -145,10 +145,10 @@ body::after {
   margin: 0;
   font-family: "Geist", sans-serif;
   font-weight: 300;
-  letter-spacing: 0.04rem;
+  letter-spacing: 0rem;
   font-size: clamp(0.9rem, 1.25rem, 1.5rem);
   letter-spacing: 0em;
-  color: rgb(245, 245, 247, 0.9);
+  color: rgb(245, 245, 247, 0.8);
 }
 
 .overlay__cta {
@@ -161,7 +161,7 @@ body::after {
   font-family: "Geist", sans-serif;
   font-weight: 400;
   border-radius: 999px;
-  letter-spacing: 0.04rem;
+  letter-spacing: 0rem;
   text-decoration: none;
   border: 0px solid rgba(255, 255, 255, 0.4);
   background: rgba(255, 255, 255, 0.1);

@@ -130,7 +130,7 @@ function OverlayContent() {
       { className: "overlay__stack fade-up", style: { "--fade-delay": "0.05s" } },
       e(MissionSection, {
         label: "Our Mission",
-        copy: "To create abundance for everyone",
+        copy: "To create Abundance for all",
         delay: "0.15s",
       }),
       e(CtaButton, { label: "Contact Us", href: "mailto:david@abundance.company", delay: "0.25s" })
