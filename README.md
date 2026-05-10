@@ -1,9 +1,9 @@
-# Three.js Project for Beginners: Add the Moon     
+# Three.js Earth    
 
-This one is made for beginners, we're adding the Moon to the Earth. 
-Let's create a majestic masterpiece.
+Support my channel: https://www.patreon.com/c/RobotBobby
 
-Watch the tutorial on [YouTube](https://youtu.be/Bd3I_cHZyGo)
+Build a high-fidelity Earth in Three.js using WebGL. In this tutorial we start from a simple template, add the sun and stars, then layer in day + night textures, roughness, bump elevation, clouds, and a sweet Fresnel atmosphere glow. By the end you’ll have a smooth, performant Earth scene—and a few easy ideas to remix it further.
+Watch the tutorial on [YouTube](https://youtu.be/FntV9iEJ0tU)
 
 Earth and Moon texture maps: [PlanetPixelEmporium](https://planetpixelemporium.com/earth.html)
 
